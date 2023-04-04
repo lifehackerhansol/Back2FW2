@@ -305,9 +305,9 @@ int main(void) {
 	// First FIFO message sent from ARM7 will be whether the device is a regular DS or not.
 	fifoWaitValue32(FIFO_RETURN);
 	isRegularDS = fifoGetValue32(FIFO_RETURN);
+	returnDSMenu();
+	iprintf("Something failed...\n");
 	while(1) {
-		returnDSMenu();
-		iprintf("Something failed...\n");
 		swiWaitForVBlank();
 		scanKeys();
 		if (keysDown() & KEY_START) break;
