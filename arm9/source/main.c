@@ -11,6 +11,7 @@
 #include <string.h>
 
 #include <nds.h>
+#include <fat.h>
 
 #include "fifoChannels.h"
 #include "fw_operation.h"
@@ -120,7 +121,8 @@ static int bootDSFirmware(u8 *data){
 
 	firmware_header_t *header = (firmware_header_t*)malloc(sizeof(firmware_header_t));
 
-	memcpy(&header, data, sizeof(header));
+	memcpy(header, data, sizeof(firmware_header_t));
+
 	if ((header->fw_identifier[0] != 'M') ||
 		(header->fw_identifier[1] != 'A') ||
 		(header->fw_identifier[2] != 'C')) 
