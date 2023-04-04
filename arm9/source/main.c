@@ -15,6 +15,7 @@
 
 #include "fifoChannels.h"
 #include "fw_operation.h"
+#include "mshlreset.h"
 #include "util.h"
 
 #define FIRMWARE_SIZE 524288
@@ -256,7 +257,7 @@ static int bootDSFirmware(u8 *data){
 	u8 *pFileBuf=(u8*)malloc(0x200+size9+size7);
 
 	//Build NDS image from tmp_dataX and sizeX
-	memcpy(pFileBuf,(void*)__NDSHeader,512);
+	memcpy(pFileBuf,ndshead,512);
 	write32(pFileBuf+0x24,ARM9bootAddr);
 	write32(pFileBuf+0x28,ARM9bootAddr);
 	write32(pFileBuf+0x2c,size9/*+pad9*/);
@@ -269,6 +270,12 @@ static int bootDSFirmware(u8 *data){
 	memcpy(pFileBuf+0x200,tmp_data9,size9);
 	memcpy(pFileBuf+0x200+size9,tmp_data7,size7);
 
+	iprintf("Press START to reboot.\n");
+	while(true) {
+		swiWaitForVBlank();
+		scanKeys();
+		if(keysDown() & KEY_START) break;
+	}
 	iprintf("Rebooting...\n");
 	*(vu32*)0x023FFDF4=(u32)pFileBuf;
 	DC_FlushAll();
