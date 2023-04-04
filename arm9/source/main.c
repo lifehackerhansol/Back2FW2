@@ -286,7 +286,7 @@ int returnDSMenu(void) {
 	if(!p) return 3;
 	iprintf("Using GPL-free decoder.\n");
 	iprintf("Getting Firmware...\n");
-	fifoSendValue32(FIFO_BUFFER_ADDR, (u32*)p);
+	fifoSendValue32(FIFO_BUFFER_ADDR, (u32)p);
 	fifoSendValue32(FIFO_BUFFER_SIZE, FIRMWARE_SIZE);
 	DC_FlushAll();
 	fifoSendValue32(FIFO_CONTROL, B2FW2_DUMP_FW);
