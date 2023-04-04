@@ -111,6 +111,8 @@ static u16 getBootCodeCRC16(){
 	return crc;
 }
 
+void ret_menu9_GENs(void);
+
 static int bootDSFirmware(u8 *data){
 	u16 shift1 = 0, shift2 = 0, shift3 = 0, shift4 = 0;
 	u32 part1addr = 0, part2addr = 0, part3addr = 0, part4addr = 0, part5addr = 0;
