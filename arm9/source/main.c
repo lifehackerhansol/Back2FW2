@@ -185,17 +185,17 @@ static int bootDSFirmware(u8 *data){
 	iprintf("- CRC : 0x%04X\n", header->part12_boot_crc16);
 	iprintf("- header: \n");
 	iprintf("   * size firmware %i\n", ((header->shift_amounts >> 12) & 0xF) * 128 * 1024);
-	iprintf("   * ARM9 boot code address:     0x%08X\n", part1addr);
-	iprintf("   * ARM9 boot code RAM address: 0x%08X\n", ARM9bootAddr);
-	iprintf("   * ARM9 unpacked size:         0x%08X (%i) bytes\n", size9, size9);
-	iprintf("   * ARM9 GUI code address:      0x%08X\n", part3addr);
+	iprintf("   * ARM9 boot code address:     0x%08lX\n", part1addr);
+	iprintf("   * ARM9 boot code RAM address: 0x%08lX\n", ARM9bootAddr);
+	iprintf("   * ARM9 unpacked size:         0x%08lX (%ld) bytes\n", size9, size9);
+	iprintf("   * ARM9 GUI code address:      0x%08lX\n", part3addr);
 	iprintf("\n");
-	iprintf("   * ARM7 boot code address:     0x%08X\n", part2addr);
-	iprintf("   * ARM7 boot code RAM address: 0x%08X\n", ARM7bootAddr);
-	iprintf("   * ARM7 WiFi code address:     0x%08X\n", part4addr);
-	iprintf("   * ARM7 unpacked size:         0x%08X (%i) bytes\n", size7, size7);
+	iprintf("   * ARM7 boot code address:     0x%08lX\n", part2addr);
+	iprintf("   * ARM7 boot code RAM address: 0x%08lX\n", ARM7bootAddr);
+	iprintf("   * ARM7 WiFi code address:     0x%08lX\n", part4addr);
+	iprintf("   * ARM7 unpacked size:         0x%08lX (%ld) bytes\n", size7, size7);
 	iprintf("\n");
-	iprintf("   * Data/GFX address:           0x%08X\n", part5addr);
+	iprintf("   * Data/GFX address:           0x%08lX\n", part5addr);
 
 	patched = false;
 	if(data[0x17C] != 0xFF)patched = true;
@@ -240,13 +240,13 @@ static int bootDSFirmware(u8 *data){
 
 		iprintf("\nFlashme:\n");
 		iprintf("- header: \n");
-		iprintf("   * ARM9 boot code address:     0x%08X\n", part1addr);
-		iprintf("   * ARM9 boot code RAM address: 0x%08X\n", ARM9bootAddr);
-		iprintf("   * ARM9 unpacked size:         0x%08X (%i) bytes\n", size9, size9);
+		iprintf("   * ARM9 boot code address:     0x%08lX\n", part1addr);
+		iprintf("   * ARM9 boot code RAM address: 0x%08lX\n", ARM9bootAddr);
+		iprintf("   * ARM9 unpacked size:         0x%08lX (%ld) bytes\n", size9, size9);
 		iprintf("\n");
-		iprintf("   * ARM7 boot code address:     0x%08X\n", part2addr);
-		iprintf("   * ARM7 boot code RAM address: 0x%08X\n", ARM7bootAddr);
-		iprintf("   * ARM7 unpacked size:         0x%08X (%i) bytes\n", size7, size7);
+		iprintf("   * ARM7 boot code address:     0x%08lX\n", part2addr);
+		iprintf("   * ARM7 boot code RAM address: 0x%08lX\n", ARM7bootAddr);
+		iprintf("   * ARM7 unpacked size:         0x%08lX (%ld) bytes\n", size7, size7);
 	}
 
 	free(data);
