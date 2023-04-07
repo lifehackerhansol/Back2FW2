@@ -18,8 +18,6 @@
 #include "mshlreset.h"
 #include "util.h"
 
-#define FIRMWARE_SIZE 524288
-
 bool isRegularDS = false;
 
 static u8		*tmp_data9;
@@ -285,23 +283,24 @@ static int bootDSFirmware(u8 *data){
 	return 0;
 }
 
+#define FIRMWARE_SIZE 1048576
+
 int returnDSMenu(void) {
 	if(!isRegularDS){
 		iprintf("Rebooting to DSi Menu...\n");
 		fifoSendValue32(FIFO_CONTROL, B2FW2_RETURN_DSI);
 		while(1) swiWaitForVBlank();
 	}
-	u8 *p = (u8*)malloc(FIRMWARE_SIZE);
+	u8 *p = (u8*)memalign(32, FIRMWARE_SIZE);
 	if(!p) return 3;
 	iprintf("Using GPL-free decoder.\n");
 	iprintf("Getting Firmware...\n");
 	fifoSendValue32(FIFO_BUFFER_ADDR, (u32)p);
 	fifoSendValue32(FIFO_BUFFER_SIZE, FIRMWARE_SIZE);
-	DC_FlushAll();
+	DC_InvalidateRange(p, FIRMWARE_SIZE);
 	fifoSendValue32(FIFO_CONTROL, B2FW2_DUMP_FW);
 	fifoWaitValue32(FIFO_RETURN);
 	fifoGetValue32(FIFO_RETURN);
-	DC_InvalidateAll();
 	iprintf("Decoding Firmware...\n");
 	return bootDSFirmware(p);
 }
