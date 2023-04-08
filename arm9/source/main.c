@@ -11,7 +11,6 @@
 #include <string.h>
 
 #include <nds.h>
-#include <fat.h>
 
 #include "fifoChannels.h"
 #include "fw_operation.h"
